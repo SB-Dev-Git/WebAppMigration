@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}勤怠入力 - 勤怠入力アプリケーション{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>勤怠入力</h2>
+    
+    <form method="POST" class="attendance-form">
+        <div class="form-group">
+            <label for="date">日付:</label>
+            <input type="date" id="date" name="date" value="{{ date }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="type">種別:</label>
+            <select id="type" name="type" required>
+                <option value="-" {% if type == '-' %}selected{% endif %}>-</option>
+                <option value="フレックス" {% if type == 'フレックス' %}selected{% endif %}>フレックス</option>
+                <option value="在宅勤務" {% if type == '在宅勤務' %}selected{% endif %}>在宅勤務</option>
+                <option value="午前休" {% if type == '午前休' %}selected{% endif %}>午前休</option>
+                <option value="午後休" {% if type == '午後休' %}selected{% endif %}>午後休</option>
+                <option value="休暇" {% if type == '休暇' %}selected{% endif %}>休暇</option>
+                <option value="祝祭日" {% if type == '祝祭日' %}selected{% endif %}>祝祭日</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="start_time">出勤時間:</label>
+            <input type="time" id="start_time" name="start_time" value="{{ start_time }}">
+        </div>
+
+        <div class="form-group">
+            <label for="end_time">退勤時間:</label>
+            <input type="time" id="end_time" name="end_time" value="{{ end_time }}">
+        </div>
+
+        <div class="form-group">
+            <label for="break_time">休憩時間（分）:</label>
+            <input type="number" id="break_time" name="break_time" value="{{ break_time or 0 }}" min="0">
+        </div>
+
+        <div class="form-group">
+            <label for="comment">コメント:</label>
+            <textarea id="comment" name="comment" rows="3">{{ comment }}</textarea>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">保存</button>
+            <a href="{{ url_for('display_attendance') }}" class="btn btn-secondary">一覧へ戻る</a>
+        </div>
+    </form>
+</div>
+
+<script>
+// 土日の場合、デフォルトで種別を「-」に設定
+document.getElementById('date').addEventListener('change', function() {
+    const date = new Date(this.value);
+    const dayOfWeek = date.getDay(); // 0: 日曜日, 6: 土曜日
+    
+    if (dayOfWeek === 0 || dayOfWeek === 6) {
+        document.getElementById('type').value = '-';
+    }
+});
+</script>
+{% endblock %}
