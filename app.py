@@ -173,7 +173,7 @@ def export_csv():
         io.BytesIO(output.getvalue().encode('utf-8-sig')),
         mimetype='text/csv',
         as_attachment=True,
-        attachment_filename=filename
+        download_name=filename
     )
 
 @app.route('/import_csv', methods=['GET', 'POST'])
