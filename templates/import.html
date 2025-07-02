@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}CSV取込 - 勤怠入力アプリケーション{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>CSV取込</h2>
+    
+    <div class="import-section">
+        <div class="import-instructions">
+            <h3>CSVファイル形式について</h3>
+            <p>以下の形式のCSVファイルを取り込むことができます：</p>
+            <ul>
+                <li>ヘッダー行: 日付,曜日,種別,出勤時間,退勤時間,休憩時間,実働時間,コメント</li>
+                <li>日付形式: YYYY-MM-DD</li>
+                <li>時間形式: HH:MM</li>
+                <li>休憩時間: 分単位の数値</li>
+                <li>実働時間: 時間単位の数値（小数点可）</li>
+            </ul>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" class="import-form">
+            <div class="form-group">
+                <label for="file">CSVファイルを選択:</label>
+                <input type="file" id="file" name="file" accept=".csv" required>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">取込実行</button>
+                <a href="{{ url_for('display_attendance') }}" class="btn btn-secondary">一覧へ戻る</a>
+            </div>
+        </form>
+
+        <div class="sample-section">
+            <h3>サンプルCSVファイル</h3>
+            <pre class="sample-csv">日付,曜日,種別,出勤時間,退勤時間,休憩時間,実働時間,コメント
+2025-01-01,水,祝祭日,,,0,0,元日
+2025-01-02,木,フレックス,09:00,18:00,60,8.0,通常勤務
+2025-01-03,金,在宅勤務,09:30,17:30,60,7.0,在宅勤務</pre>
+        </div>
+    </div>
+</div>
+{% endblock %}

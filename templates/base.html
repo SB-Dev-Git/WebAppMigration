@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}勤怠入力アプリケーション{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <h1 class="nav-title">勤怠入力アプリケーション</h1>
+                <ul class="nav-menu">
+                    <li><a href="{{ url_for('index') }}">ホーム</a></li>
+                    <li><a href="{{ url_for('input_attendance') }}">勤怠入力</a></li>
+                    <li><a href="{{ url_for('display_attendance') }}">勤怠一覧</a></li>
+                    <li><a href="{{ url_for('import_csv') }}">CSV取込</a></li>
+                    <li><a href="{{ url_for('export_csv') }}">CSV出力</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="flash-message flash-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 勤怠入力アプリケーション</p>
+    </footer>
+</body>
+</html>
