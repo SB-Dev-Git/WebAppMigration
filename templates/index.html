@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}ホーム - 勤怠入力アプリケーション{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="welcome-section">
+        <h2>勤怠入力アプリケーションへようこそ</h2>
+        <p>このアプリケーションでは、日々の勤怠情報を簡単に管理できます。</p>
+    </div>
+
+    <div class="feature-grid">
+        <div class="feature-card">
+            <h3>勤怠入力</h3>
+            <p>日付、種別、出退勤時間、休憩時間、コメントを入力できます。</p>
+            <a href="{{ url_for('input_attendance') }}" class="btn btn-primary">入力画面へ</a>
+        </div>
+
+        <div class="feature-card">
+            <h3>勤怠一覧</h3>
+            <p>入力した勤怠データを表形式で確認できます。実働時間も自動計算されます。</p>
+            <a href="{{ url_for('display_attendance') }}" class="btn btn-primary">一覧画面へ</a>
+        </div>
+
+        <div class="feature-card">
+            <h3>CSV取込</h3>
+            <p>CSVファイルから勤怠データを一括取込できます。</p>
+            <a href="{{ url_for('import_csv') }}" class="btn btn-primary">取込画面へ</a>
+        </div>
+
+        <div class="feature-card">
+            <h3>CSV出力</h3>
+            <p>勤怠データをCSVファイルとしてダウンロードできます。</p>
+            <a href="{{ url_for('export_csv') }}" class="btn btn-primary">CSV出力</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
